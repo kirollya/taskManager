@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    th.data {
+        text-align: left;
+        border: 1px solid black;
+        min-width: 300px;
+    }
+    .tableInput{
+        min-width: 300px;
+    }
+    .actionBtn{
+        min-width: 150px;
+    }
+    tr.data {
+        border: 1px solid black;
+    }
+    th.header {
+        text-align: center;
+        min-width: 300px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Мои задачи</title>
+    <script src="/scripts/taskOperations.js"></script>
+</head>
+<body>
+    {#if chiefTasksList}
+        <h1>Я руководитель</h1>
+        <table>
+            <thead>
+            <tr>
+                <th class = header>Назначивший</th>
+                <th class = header>Содержание</th>
+                <th class = header>Дата назначения</th>
+            </tr>
+            </thead>
+        <tbody>
+        {#for task in chiefTasksList}
+        <tr class = data>
+            <th class = data>{task.chief.fio}</th>
+            <th class = data>{task.content}</th>
+            <th class = data>{task.date}</th>
+            <th><button class = actionBtn id="deleteTaskBtn" onclick="deleteTask({task.id})">Удалить</button></th>
+        </tr>
+        {/for}
+        <th class = tableInput id="chief">{currentUser.fio}</th>
+        <th><input class = tableInput type="text" id="content" name="content"></th>
+        <th><input class = tableInput type="date" id="date" name="date"></th>
+        <th><button class = actionBtn id="saveTask" onclick="addTask({currentUser.id})">Сохранить</button></th>
+        </tbody>
+        </table>
+    {/if}
+    <h1>Я исполнитель</h1>
+    <table>
+        <thead>
+        <tr>
+            <th class = header>Назначивший</th>
+            <th class = header>Содержание</th>
+            <th class = header>Дата назначения</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#for task in workerTasksList}
+        <tr class = data>
+            <th class = data>{task.chief.fio}</th>
+            <th class = data>{task.content}</th>
+            <th class = data>{task.date}</th>
+            <th><button class = actionBtn id="deleteTaskBtn" onclick="deleteTask({task.id})">Удалить</button></th>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+</body>
+</html>

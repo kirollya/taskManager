@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    th.data {
+        text-align: left;
+        border: 1px solid black;
+        min-width: 300px;
+    }
+    .tableInput{
+        min-width: 300px;
+    }
+    .actionBtn{
+        min-width: 150px;
+    }
+    tr.data {
+        border: 1px solid black;
+    }
+    th.header {
+        text-align: center;
+        min-width: 300px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Все записи</title>
+    <script src="/scripts/employeeOperations.js"></script>
+</head>
+<body>
+    <h1>Сотрудники</h1>
+    <table>
+    <thead>
+        <tr>
+            <th class = header>Логин</th>
+            <th class = header>ФИО</th>
+            <th class = header>Должность</th>
+            <th class = header>Ранг</th>
+        </tr>
+    </thead>
+    <tbody>
+    {#for employee in employees}
+        <tr class = data>
+            <th class = data>{employee.username}</th>
+            <th class = data>{employee.fio}</th>
+            <th class = data>{employee.post}</th>
+            <th class = data>{employee.rank}</th>
+            <th><button class = actionBtn id="deleteEmployeeBtn" onclick="deleteEmployee({employee.id})">Удалить</button></th>
+        </tr>
+    {/for}
+    <tr>
+        <th><input class = tableInput  type="text" id="employeeLogin" name="employeeLogin"></th>
+        <th><input class = tableInput  type="text" id="employeeName" name="employeeName"></th>
+        <th><select class = tableInput min-width=300px id="employeePost" name="employeePost">
+            {#for post in posts}
+            <option>{post}</option>>
+            {/for}
+        </select></th>
+        <th><input class = tableInput min-width=300px type="text" id="employeeRank" name="employeeRank"></th>
+        <th><button class = actionBtn id="saveEmployeeBtn" onclick="addEmployee()">Сохранить</button></th>
+    </tr>
+    </tbody>
+    </table>
+
+    <h1>Задачи</h1>
+    <table>
+        <thead>
+        <tr>
+            <th class = header>Идентификатор</th>
+            <th class = header>Руководитель</th>
+            <th class = header>Содержание</th>
+            <th class = header>Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#for task in tasks}
+        <tr class = data>
+            <th class = data>{task.id}</th>
+            <th class = data>{task.chief.fio}</th>
+            <th class = data>{task.content}</th>
+            <th class = data>{task.date}</th>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+
+    <h1>Назначения</h1>
+    <table>
+        <thead>
+        <tr>
+            <th class = header>Исполнитель</th>
+            <th class = header>Идентификатор задачи</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#for perform in performs}
+        <tr class = data>
+            <th class = data>{perform.worker.fio}</th>
+            <th class = data>{perform.task.id}</th>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+</body>
+</html>
