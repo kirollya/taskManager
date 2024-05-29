@@ -22,6 +22,8 @@ public class Task implements Serializable {
 
     private Date date;
 
+    private Boolean completed;
+
     public Long getId() {
         return id;
     }
@@ -49,4 +51,13 @@ public class Task implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public Boolean isCompleted() {
+        return this.completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
 }

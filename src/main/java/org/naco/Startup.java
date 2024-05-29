@@ -43,12 +43,14 @@ public class Startup {
         task.setChief(employees.get(1));
         task.setContent("Одна из самых первых задач");
         task.setDate(new Date());
+        task.setCompleted(true);
         mainFacade.addTask(task);
         tasks.add(task);
         task = new Task();
         task.setChief(employees.get(1));
         task.setContent("Вторая задачка");
         task.setDate(new Date());
+        task.setCompleted(false);
         mainFacade.addTask(task);
         tasks.add(task);
         List<Perform> performs = new ArrayList<>();

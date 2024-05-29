@@ -6,6 +6,9 @@
         border: 1px solid black;
         min-width: 300px;
     }
+    .deactivatedBtn{
+        visibility: hidden;
+    }
     .tableInput{
         min-width: 300px;
     }
@@ -48,6 +51,7 @@
         <th class = tableInput id="chief">{currentUser.fio}</th>
         <th><input class = tableInput type="text" id="content" name="content"></th>
         <th><input class = tableInput type="date" id="date" name="date"></th>
+        <th class = tableInput>-</th>
         <th><button class = actionBtn id="saveTask" onclick="addTask({currentUser.id})">Сохранить</button></th>
         </tbody>
         </table>
@@ -59,6 +63,7 @@
             <th class = header>Назначивший</th>
             <th class = header>Содержание</th>
             <th class = header>Дата назначения</th>
+            <th class = header>Выполнена</th>
         </tr>
         </thead>
         <tbody>
@@ -67,7 +72,8 @@
             <th class = data>{task.chief.fio}</th>
             <th class = data>{task.content}</th>
             <th class = data>{task.date}</th>
-            <th><button class = actionBtn id="deleteTaskBtn" onclick="deleteTask({task.id})">Удалить</button></th>
+            <th><input type="checkbox" id="{task.id}_completed" name="completed" onchange="completedUpd({task.id})" value={task.completed} {#if task.completed} checked{/if}></th>
+            <th><button class = deactivatedBtn id="{task.id}_updTaskBtn" onclick="updTaskCompleted({task.id})">Применить</button></th>
         </tr>
         {/for}
         </tbody>

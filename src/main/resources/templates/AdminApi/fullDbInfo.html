@@ -68,6 +68,7 @@
             <th class = header>Руководитель</th>
             <th class = header>Содержание</th>
             <th class = header>Дата</th>
+            <th class = header>Выполнена</th>
         </tr>
         </thead>
         <tbody>
@@ -77,6 +78,8 @@
             <th class = data>{task.chief.fio}</th>
             <th class = data>{task.content}</th>
             <th class = data>{task.date}</th>
+            {#if task.completed} <th class = data>Да</th> {/if}
+            {#if !task.completed} <th class = data>Нет</th> {/if}
         </tr>
         {/for}
         </tbody>

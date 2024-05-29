@@ -49,4 +49,8 @@ public class MyTasksService {
         return true;
     }
 
+    @Transactional
+    public void updTaskCompleted(Long id, Boolean completed) {
+        taskController.getTaskRepository().update("completed = ?1 where id = ?2", completed, id);
+    }
 }

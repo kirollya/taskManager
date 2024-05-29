@@ -109,4 +109,7 @@ public class MainFacade {
         return myTasksService.deleteTaskById(id);
     }
 
+    public void updTaskCompleted(Long id, Boolean completed) {
+        myTasksService.updTaskCompleted(id, completed);
+    }
 }
