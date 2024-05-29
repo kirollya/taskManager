@@ -2,6 +2,7 @@ package org.naco.services;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.Table;
 import jakarta.transaction.Transactional;
 import org.naco.controllers.EmployeeController;
 import org.naco.controllers.PerformController;
@@ -11,6 +12,7 @@ import org.naco.models.entities.Perform;
 import org.naco.models.entities.Task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
@@ -52,5 +54,10 @@ public class MyTasksService {
     @Transactional
     public void updTaskCompleted(Long id, Boolean completed) {
         taskController.getTaskRepository().update("completed = ?1 where id = ?2", completed, id);
+    }
+
+    @Transactional
+    public void updTaskDate(Long id, Date date) {
+        taskController.getTaskRepository().update("date = ?1 where id = ?2", date, id);
     }
 }

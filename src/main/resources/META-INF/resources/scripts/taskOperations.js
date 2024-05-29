@@ -60,3 +60,24 @@ function completedUpd(task_id) {
         document.getElementById(task_id + "_updTaskBtn").className = "activatedBtn";
     }
 }
+
+async function updTaskDate(task_id) {
+    response = await fetch("http://localhost:8080/admin/task/updTaskDate/" + task_id, {
+          method: "POST",
+          body: JSON.stringify(document.getElementById(task_id + "_date").value),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        });
+        if (response.ok) {
+            document.getElementById(task_id + "_updTaskBtn").className = "deactivatedBtn";
+            document.getElementById(task_id + "_deleteTaskBtn").className = "activatedBtn";
+            location.reload();
+            return;
+        }
+}
+
+function dateUpd(task_id) {
+    document.getElementById(task_id + "_updTaskBtn").className = "activatedBtn";
+    document.getElementById(task_id + "_deleteTaskBtn").className = "deactivatedBtn";
+}

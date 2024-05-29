@@ -15,6 +15,7 @@ import org.naco.models.entities.Task;
 import org.naco.services.EmployeeService;
 import org.naco.services.MyTasksService;
 
+import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
@@ -111,5 +112,9 @@ public class MainFacade {
 
     public void updTaskCompleted(Long id, Boolean completed) {
         myTasksService.updTaskCompleted(id, completed);
+    }
+
+    public void updTaskDate(Long id, Date date) {
+        myTasksService.updTaskDate(id, date);
     }
 }
