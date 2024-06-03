@@ -7,9 +7,9 @@ async function find() {
             additionalParams += "?workerId=" + worker;
     if (chief != "")
         if (additionalParams != "")
-            additionalParams += "&chief=" + chief;
+            additionalParams += "&chiefId=" + chief;
         else
-            additionalParams += "?chief=" + chief;
+            additionalParams += "?chiefId=" + chief;
     if (date != "")
         if (additionalParams != "")
             additionalParams += "&date=" + date;
