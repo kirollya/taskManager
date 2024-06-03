@@ -34,3 +34,24 @@ async function addEmployee() {
         return;
     }
 }
+
+function rankChanged(employee_id) {
+    document.getElementById(employee_id + "_updEmployeeBtn").className = "activatedBtn";
+    document.getElementById(employee_id + "_deleteEmployeeBtn").className = "deactivatedBtn";
+}
+
+async function updEmployeeRank(employee_id) {
+    response = await fetch("http://localhost:8080/admin/employee/updEmployeeRank/" + employee_id, {
+      method: "POST",
+      body: JSON.stringify(document.getElementById(employee_id + "_rank").value),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    });
+    if (response.ok) {
+        document.getElementById(employee_id + "_updEmployeeBtn").className = "deactivatedBtn";
+        document.getElementById(employee_id + "_deleteEmployeeBtn").className = "activatedBtn";
+        location.reload();
+        return;
+    }
+}

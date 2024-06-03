@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    const login = () => {
+const login = () => {
     // Create an object to represent the form data
     const formData = new URLSearchParams();
     formData.append("j_username", username);
@@ -33,13 +33,21 @@
         console.error(error);
     });
 };
+
+const logout = () => {
+    document.cookie = "quarkus-credential=; Max-Age=0";
+    location.reload();
+};
 </script>
+    <h2>Авторизация</h2>
     <form action="/j_security_check" method="post">
-    <label>Username</label>
-    <input type="text" placeholder="Username" name="j_username" required>
-    <label>Password</label>
-    <input type="password" placeholder="Password" name="j_password" required>
-    <button type="submit">Login</button>
+        <label>Логин:</label><br>
+        <input type="text" placeholder="Логин" name="j_username" required>
+        <br><br>
+        <label>Пароль:</label><br>
+        <input type="password" placeholder="Пароль" name="j_password" required>
+    <br><br>
+    <button type="submit">Авторизоваться</button> <button onclick="logout()">Выйти</button>
     </form>
 </body>
 </html>

@@ -6,6 +6,12 @@
         border: 1px solid black;
         min-width: 300px;
     }
+    tr.myClass{
+        border: 1px solid black;
+    }
+    .deactivatedBtn{
+        visibility: hidden;
+    }
     .tableInput{
         min-width: 300px;
     }
@@ -31,24 +37,36 @@
         <table>
             <thead>
             <tr>
+                <th class = header>Идентификатор</th>
                 <th class = header>Назначивший</th>
                 <th class = header>Содержание</th>
                 <th class = header>Дата назначения</th>
+                <th class = header>Выполнена</th>
             </tr>
             </thead>
         <tbody>
         {#for task in chiefTasksList}
         <tr class = data>
+            <th class = data><a class = data href = "http://localhost:8080/task/getInfo/{task.id}">{task.id}</a></th>
             <th class = data>{task.chief.fio}</th>
             <th class = data>{task.content}</th>
-            <th class = data>{task.date}</th>
-            <th><button class = actionBtn id="deleteTaskBtn" onclick="deleteTask({task.id})">Удалить</button></th>
+            <th><input class = tableInput type="date" id="{task.id}_date" name="date" onchange='dateUpd({task.id})' value={simpleDateFormat.format(task.date)}></th>
+            {#if task.completed} <th class = data>Да</th> {/if}
+            {#if !task.completed} <th class = data>Нет</th> {/if}
+            <th>
+                <button class = activatedBtn id="{task.id}_deleteTaskBtn" onclick="deleteTask({task.id})">Удалить</button>
+                <button class = deactivatedBtn id="{task.id}_updTaskBtn" onclick="updTaskDate({task.id})">Применить</button>
+            </th>
         </tr>
         {/for}
-        <th class = tableInput id="chief">{currentUser.fio}</th>
-        <th><input class = tableInput type="text" id="content" name="content"></th>
-        <th><input class = tableInput type="date" id="date" name="date"></th>
-        <th><button class = actionBtn id="saveTask" onclick="addTask({currentUser.id})">Сохранить</button></th>
+        <tr>
+            <th class = tableInput>Новая задача</th>
+            <th class = tableInput id="chief">{currentUser.fio}</th>
+            <th><input class = tableInput type="text" id="content" name="content"></th>
+            <th><input class = tableInput type="date" id="date" name="date"></th>
+            <th class = tableInput>-</th>
+            <th><button class = actionBtn id="saveTask" onclick="addTask({currentUser.id})">Сохранить</button></th>
+        </tr>
         </tbody>
         </table>
     {/if}
@@ -56,18 +74,22 @@
     <table>
         <thead>
         <tr>
+            <th class = header>Идентификатор</th>
             <th class = header>Назначивший</th>
             <th class = header>Содержание</th>
             <th class = header>Дата назначения</th>
+            <th class = header>Выполнена</th>
         </tr>
         </thead>
         <tbody>
         {#for task in workerTasksList}
         <tr class = data>
+            <th class = data><a class = data href = "http://localhost:8080/task/getInfo/{task.id}">{task.id}</a></th>
             <th class = data>{task.chief.fio}</th>
             <th class = data>{task.content}</th>
             <th class = data>{task.date}</th>
-            <th><button class = actionBtn id="deleteTaskBtn" onclick="deleteTask({task.id})">Удалить</button></th>
+            <th><input type="checkbox" id="{task.id}_completed" name="completed" onchange="completedUpd({task.id})" value={task.completed} {#if task.completed} checked{/if}></th>
+            <th><button class = deactivatedBtn id="{task.id}_updTaskBtn" onclick="updTaskCompleted({task.id})">Применить</button></th>
         </tr>
         {/for}
         </tbody>

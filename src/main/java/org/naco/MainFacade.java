@@ -15,6 +15,7 @@ import org.naco.models.entities.Task;
 import org.naco.services.EmployeeService;
 import org.naco.services.MyTasksService;
 
+import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
@@ -109,4 +110,42 @@ public class MainFacade {
         return myTasksService.deleteTaskById(id);
     }
 
+    public void updTaskCompleted(Long id, Boolean completed) {
+        myTasksService.updTaskCompleted(id, completed);
+    }
+
+    public void updTaskDate(Long id, Date date) {
+        myTasksService.updTaskDate(id, date);
+    }
+
+    public Task getTaskById(Long id) {
+        return myTasksService.getTaskById(id);
+    }
+
+    public List<Employee> getWorkersForTask(Task task) {
+        return  myTasksService.getWorkersForTask(task);
+    }
+
+    public List<Task> getTasksByParams(Long workerId, Long chiefId, Date date) {
+        return myTasksService.getTasksByParams(workerId, chiefId, date);
+    }
+
+    public List<Employee> getAllChiefs() {
+        return myTasksService.getAllChiefs();
+    }
+
+    public List<Employee> getEmployeesForChief(Employee me, Task task) {
+        List<Employee> workers = myTasksService.getWorkersForTask(task);
+        List<Employee> result = myTasksService.getEmployeesForChief(me);
+        result = result.stream().filter(employee -> !workers.contains(employee)).toList();
+        return result;
+    }
+
+    public void assignWorker(Long task_id, Long worker_id) {
+        myTasksService.assignWorker(task_id, worker_id);
+    }
+
+    public void updEmployeeRank(Long id, Integer rank) {
+        employeeService.updEmployeeRank(id, rank);
+    }
 }

@@ -16,6 +16,7 @@ import org.naco.models.entities.Task;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Path("/admin")
@@ -81,6 +82,13 @@ public class AdminApi {
     }
 
     @POST
+    @Path("/employee/updEmployeeRank/{id}")
+    public Response updEmployeeId(@PathParam("id") Long id, Integer rank) {
+        mainFacade.updEmployeeRank(id, rank);
+        return Response.ok().build();
+    }
+
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/task/add")
     public Response addTask(Task task) {
@@ -109,6 +117,20 @@ public class AdminApi {
             System.out.println("Unable to delete task with id = " + id + ", because of links on it");
             return Response.serverError().build();
         }
+    }
+
+    @POST
+    @Path("/task/updTaskDate/{id}")
+    public Response updTaskDate(@PathParam("id") Long id, Date date) {
+        mainFacade.updTaskDate(id, date);
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/task/{task_id}/assignWorker_{worker_id}")
+    public Response assignWorker(@PathParam("worker_id") Long worker_id, @PathParam("task_id") Long task_id) {
+        mainFacade.assignWorker(task_id, worker_id);
+        return Response.ok().build();
     }
 
 }

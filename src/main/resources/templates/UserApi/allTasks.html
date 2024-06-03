@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задачи</title>
+    <script src="/scripts/allTasksOperations.js"></script>
+</head>
+<body>
+    <table>
+        <tbody>
+        <th><label>Исполнитель </label>
+            <select id="workerId">
+                <option value="">-</option>
+                {#for employee in workers}
+                    <option value={employee.id}>{employee.fio} ({employee.username})</option>
+                {/for}
+            </select>
+        </th>
+        <th><label>Назначивший </label>
+            <select id="chiefId">
+                <option value="">-</option>
+                {#for employee in chiefs}
+                        <option value={employee.id}>{employee.fio} ({employee.username})</option>
+                {/for}
+            </select>
+        </th>
+        <th>
+            <label>Дата </label>
+            <input type = date id="dateInput">
+        </th>
+        <th>
+            <button onclick="find()">Поиск</button>
+        </th>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th class = header>Идентификатор</th>
+            <th class = header>Назначивший</th>
+            <th class = header>Содержание</th>
+            <th class = header>Дата назначения</th>
+            <th class = header>Выполнена</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#for task in tasks}
+        <tr class = data>
+        <th class = data><a class = data href = "http://localhost:8080/task/getInfo/{task.id}">{task.id}</a></th>
+            <th class = data>{task.chief.fio}</th>
+            <th class = data>{task.content}</th>
+            <th class = data>{simpleDateFormat.format(task.date)}</th>
+            <th class = data>{#if task.isCompleted}Да{#else}Нет{/if}</th>
+        </tr>
+        {/for}
+        </tbody>
+    </table>
+    <button onclick="makeReport()">Создать отчет</button>
+</body>
+</html>

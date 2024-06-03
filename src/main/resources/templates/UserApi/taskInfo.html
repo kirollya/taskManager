@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача {task.id}</title>
+    <script src="/scripts/allTasksOperations.js"></script>
+</head>
+<body>
+    <h1>Задача {task.id}</h1>
+    <div>Содержание: {task.content}</div>
+    <div>Создатель: {task.chief.fio} ({task.chief.username})</div>
+    <div>Выполнена:
+    {#if task.isCompleted}
+        Да
+    {#else}
+        Нет
+    {/if}</div>
+    <div>Исполнители:</div>
+    <table>
+        <thead>
+        <tr>
+            <th>Логин</th>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Ранг</th>
+        </tr>
+        </thead>
+        <tbody>
+        {#for worker in workers}
+            <tr>
+                <th>{worker.username}</th>
+                <th>{worker.fio}</th>
+                <th>{worker.post}</th>
+                <th>{worker.rank}</th>
+            </tr>
+        {/for}
+        <tr>
+            <th>
+                <select id="chiefId">
+                {#for employee in allWorkers}
+                        <option value={employee.id}>{employee.fio} ({employee.username})</option>
+                {/for}
+                </select>
+            </th>
+            <th><button onclick="assignEmployee({task.id})">Назначить</button></th>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

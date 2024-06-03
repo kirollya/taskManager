@@ -9,6 +9,9 @@
     .tableInput{
         min-width: 300px;
     }
+    .deactivatedBtn{
+        visibility: hidden;
+    }
     .actionBtn{
         min-width: 150px;
     }
@@ -42,8 +45,12 @@
             <th class = data>{employee.username}</th>
             <th class = data>{employee.fio}</th>
             <th class = data>{employee.post}</th>
-            <th class = data>{employee.rank}</th>
-            <th><button class = actionBtn id="deleteEmployeeBtn" onclick="deleteEmployee({employee.id})">Удалить</button></th>
+            <th><input class = tableInput id="{employee.id}_rank" onchange="rankChanged({employee.id})" type="text" value={employee.rank}></th>
+            <th>
+                <button class = activatedBtn id="{employee.id}_deleteEmployeeBtn" onclick="deleteEmployee({employee.id})">Удалить</button>
+                <button class = deactivatedBtn id="{employee.id}_updEmployeeBtn" onclick="updEmployeeRank({employee.id})">Применить</button>
+            </th>
+            <!--<th><button class = actionBtn id="deleteEmployeeBtn" onclick="deleteEmployee({employee.id})">Удалить</button></th>-->
         </tr>
     {/for}
     <tr>
@@ -68,6 +75,7 @@
             <th class = header>Руководитель</th>
             <th class = header>Содержание</th>
             <th class = header>Дата</th>
+            <th class = header>Выполнена</th>
         </tr>
         </thead>
         <tbody>
@@ -77,6 +85,8 @@
             <th class = data>{task.chief.fio}</th>
             <th class = data>{task.content}</th>
             <th class = data>{task.date}</th>
+            {#if task.completed} <th class = data>Да</th> {/if}
+            {#if !task.completed} <th class = data>Нет</th> {/if}
         </tr>
         {/for}
         </tbody>

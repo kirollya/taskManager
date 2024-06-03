@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчет</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th class = header>Идентификатор</th>
+        <th class = header>Назначивший</th>
+        <th class = header>Содержание</th>
+        <th class = header>Дата назначения</th>
+        <th class = header>Выполнена</th>
+    </tr>
+    </thead>
+<tbody>
+{#for task in tasks}
+<tr class = data>
+    <th class = data><a class = data href = "http://localhost:8080/task/getInfo/{task.id}">{task.id}</a></th>
+    <th class = data>{task.chief.fio}</th>
+    <th class = data>{task.content}</th>
+    <th class = data>{simpleDateFormat.format(task.date)}</th>
+    <th class = data>{#if task.isCompleted}Да{#else}Нет{/if}</th>
+</tr>
+{/for}
+</tbody>
+</table>
+</body>
+</html>
