@@ -12,6 +12,10 @@ public class EmployeeController {
     @Inject
     EmployeeRepository employeeRepository;
 
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     @Transactional
     public void addEmployee(Employee employee) {
         employeeRepository.persistAndFlush(employee);
@@ -28,6 +32,10 @@ public class EmployeeController {
 
     public Employee getEmployeeByUsername(String username) {
         return employeeRepository.find("username", username).firstResult();
+    }
+
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id);
     }
 
 }

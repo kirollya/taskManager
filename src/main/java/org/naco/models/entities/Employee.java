@@ -29,6 +29,7 @@ public class Employee implements Serializable {
     public String password;
     @Roles
     public String role;
+    public void setId(Long id) {this.id = id;}
 
     public Long getId() {
         return id;
