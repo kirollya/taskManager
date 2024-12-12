@@ -2,11 +2,14 @@ package org.naco.api;
 
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
+import io.vertx.core.json.JsonObject;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.SecurityContext;
 import org.naco.MainFacade;
 import org.naco.models.entities.Employee;
 import org.naco.models.entities.Perform;
@@ -20,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @Path("/admin")
-@RolesAllowed("admin")
+//@RolesAllowed("admin")
 public class AdminApi {
 
     final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
@@ -78,7 +81,41 @@ public class AdminApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/employee/get/{id}")
     public Response getEmployee(@PathParam("id") Long id) {
-        return Response.ok(mainFacade.getEmployee(id)).build();
+        Object employee = mainFacade.getEmployee(id);
+        if (employee != null) {
+            return Response.ok(employee).build();
+        }
+        return Response.status(404).build();
+    }
+
+    @GET
+    @Path("/task/get/{id}")
+    public Response getTaskInfo(@PathParam("id") Long id) {
+        Task task = mainFacade.getTaskById(id);
+        if (task != null) {
+            return Response.ok(task).build();
+        }
+        return Response.status(404).build();
+    }
+
+    @GET
+    @Path("/fibonachi/get/{id}")
+    public Response getFibonachi(@PathParam("id") Long id) {
+        if (id < 0) {
+            return Response.status(500).build();
+        }
+        if (id < 2) {
+            return Response.ok(1L).build();
+        }
+        Long[] numbers = new Long[2];
+        numbers[0] = 1L;
+        numbers[1] = 1L;
+        for (int i = 1; i < id; i++) {
+            Long p = numbers[0];
+            numbers[0] = numbers[1];
+            numbers[1] = p + numbers[0];
+        }
+        return Response.ok(numbers[1]).build();
     }
 
     @POST

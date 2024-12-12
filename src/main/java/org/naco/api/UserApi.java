@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 @Path("/")
-@RolesAllowed({"user", "admin"})
+//@RolesAllowed({"user", "admin"})
 public class UserApi {
 
     @Inject

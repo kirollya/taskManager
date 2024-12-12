@@ -2,6 +2,7 @@ package org.naco;
 
 import com.sun.tools.javac.Main;
 import io.quarkus.runtime.StartupEvent;
+import io.quarkus.security.User;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
